@@ -1,0 +1,10 @@
+security:
+  user:
+    password: pass2
+    name: user
+zuul:
+  routes:
+    resource:
+      path: /resourceServer/**
+      url: http://localhost:9000
+      sensitive-headers:
