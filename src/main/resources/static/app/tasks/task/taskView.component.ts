@@ -13,7 +13,7 @@ export class TaskViewComponent implements OnInit {
     @Input() task : Task;
 
     constructor(private tasksService : TasksService, private route: ActivatedRoute) {
-
+        oioi
     }
 
     ngOnInit():any {
