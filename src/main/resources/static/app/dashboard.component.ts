@@ -4,6 +4,8 @@ import {HeroService} from "./hero.service";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./security/authentication.service";
 import {Credentials} from "./security/credentials";
+import {TasksService} from "./tasks/tasks.service";
+import {OverviewTaskData} from "./tasks/OverviewTaskData";
 
 @Component({
     selector: 'my-dashboard',
@@ -12,16 +14,19 @@ import {Credentials} from "./security/credentials";
 
 })
 export class DashboardComponent implements OnInit {
-    heroes: Hero[] = [];
+
+    taskOverviewData: OverviewTaskData = new OverviewTaskData();
+
     constructor(
         private router: Router,
-        private heroService: HeroService) {
+        private tasksService: TasksService) {
     }
 
     ngOnInit() {
-        this.heroService.getHeroes()
-            .then(heroes => this.heroes = heroes.slice(1, 5));
+        this.tasksService.fetchOverviewData()
+            .then(overviewData => this.taskOverviewData = overviewData);
     }
+
     gotoDetail(hero: Hero) {
         let link = ['/detail', hero.id];
         this.router.navigate(link);

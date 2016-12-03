@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="sidebar">
+            <div class="appName">
+                <i class="fa fa-wrench fa-fw appIcon" aria-hidden="true"></i>&nbsp;Tasker
+            </div>
+            <ul class="nav nav-sidebar" *ngIf="menuVisible">
+                <li >
+                    <a [routerLink]="['/dashboard']" routerLinkActive="active" >
+                        <i class="fa fa-signal" aria-hidden="true"></i>Overview
+                    </a>
+                </li>
+                <li >
+                    <a [routerLink]="['/mytasks']" routerLinkActive="active" >
+                        <i class="fa fa-list-ol" aria-hidden="true"></i>My Tasks
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <navigation-bar></navigation-bar>
+            </div>
+            <div class="row">
+                <div class="mainView">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

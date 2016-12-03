@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, Response} from "@angular/http";
 import {HttpClient} from "../httpClient/httpClient";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthenticationService {
@@ -8,9 +9,16 @@ export class AuthenticationService {
     public authenticatedEvent$: EventEmitter<boolean>;
     public authenticated = false;
 
-    constructor(private http : Http, private httpClient : HttpClient) {
+    constructor(private http : Http, private httpClient : HttpClient, private router: Router) {
         this.authenticatedEvent$ = new EventEmitter<boolean>();
-        this.retrieveXsrfToken();
+        this.checkIfSessionStillActive();
+    }
+
+    public logout(){
+        if(this.authenticated){
+            this.httpClient.post("perform_logout",{}, new Headers()).toPromise()
+                .then(response => this.loggedOut());
+        }
     }
 
     public authenticate(username : String, password : String){
@@ -30,17 +38,46 @@ export class AuthenticationService {
             .catch(error => this.handleError(error));
     }
 
-    public retrieveXsrfToken(){
+    public checkIfSessionStillActive(){
+        this.retrieveCSRFTokenAndThen(this.sessionActive);
+    }
+
+    public retrieveCSRFTokenAndThen(callback : Function){
         let headers = new Headers();
         this.http.get("token", {headers: headers})
             .toPromise()
             .then(response => this.extractToken(response))
+            .then(response => callback.call(this, response))
             .catch(error => this.handleError(error));
     }
 
-    extractToken(response : any){
+    public retrieveAuthenticatedXsrfToken(){
+        this.retrieveCSRFTokenAndThen(this.userAuthenticated);
+    }
+
+    public retrieveLoggedOutXsrfToken(){
+        this.retrieveCSRFTokenAndThen(this.userLoggedOut);
+    }
+
+    extractToken(response : Response){
         this.httpClient.updateCsrfToken(response.text());
+        return response;
+    }
+
+    sessionStillActive(response : any){
         this.sessionActive();
+    }
+
+    userAuthenticated(response : any){
+        this.authenticatedEvent$.emit(true);
+        this.authenticated = true;
+        let link = ['/dashboard'];
+        this.router.navigate(link);
+    }
+
+    userLoggedOut(response : any){
+        this.authenticated = false;
+        this.authenticatedEvent$.emit(false);
     }
 
     handleError(error : any){
@@ -53,8 +90,7 @@ export class AuthenticationService {
     processResponse(response : any){
         let name = response.text();
         if(name){
-            this.authenticatedEvent$.emit(true);
-            this.authenticated = true;
+            this.retrieveAuthenticatedXsrfToken()
         }
     }
 
@@ -62,5 +98,8 @@ export class AuthenticationService {
         console.log("Session still active!!");
         this.processResponse(response);
     }
-    
+
+    private loggedOut() {
+        this.retrieveLoggedOutXsrfToken();
+    }
 }

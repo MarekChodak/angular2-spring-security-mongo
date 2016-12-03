@@ -1,31 +1,28 @@
-import {Component} from "@angular/core";
+import {Component, AfterViewInit, ViewChild, ElementRef} from "@angular/core";
 import {AuthenticationService} from "../security/authentication.service";
 import {Credentials} from "../security/credentials";
 import {HttpClient} from "../httpClient/httpClient";
 import {Headers} from "@angular/http";
 
+declare var $: any;
+
 @Component({
     selector: 'login-form',
-    template: `
-    <div *ngIf="visible">
-        <form (ngSubmit)="login()" #loginForm="ngForm">
-            <input type="text" [(ngModel)]="usernamee" placeholder="Login" name="username" #username="ngModel">
-            <input type="password" [(ngModel)]="passworde" placeholder="Password" name="password" #password="ngModel">
-            <button type="submit">Login</button>
-        </form>
-    </div>
-    <div>{{testValue}}</div>
-    `
+    templateUrl: 'app/login/login.component.html'
 })
 
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit{
+
+    @ViewChild('loginFormSel') el:ElementRef;
+
+    ngAfterViewInit():any {
+        $(this.el.nativeElement).click((e) => e.stopPropagation());
+    }
 
     usernamee : String;
     passworde : String;
 
     visible = false;
-
-    testValue : string = "ojoj";
 
     constructor(private authenticationService : AuthenticationService, private http : HttpClient) {
         authenticationService.authenticatedEvent$

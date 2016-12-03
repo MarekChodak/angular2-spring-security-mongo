@@ -14,7 +14,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 war {
-    baseName = 'gradle-test'
+    baseName = 'angular-test'
     version =  '0.0.0'
 }
 

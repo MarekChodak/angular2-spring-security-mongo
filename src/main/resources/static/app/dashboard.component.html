@@ -1,8 +1,32 @@
-<h3>Top Heroes</h3>
-<div class="grid grid-pad">
-    <div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-4">
-        <div class="module hero">
-            <h4>{{hero.name}}</h4>
+<div class="container-fluid">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="dashboard-info-header text-center">
+                        <i class="fa fa-comments fa-fw"></i> Overall Tasks Created
+                    </div>
+                </div>
+            </div>
+            <div class="text-center dashboard-info-value">
+                <span class="text-primary">{{taskOverviewData.tasksCount}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="dashboard-info-header text-center">
+                        <i class="fa fa-comments fa-fw"></i> Tasks Created Last Week
+                    </div>
+                </div>
+            </div>
+            <div class="text-center dashboard-info-value">
+                <span class="text-primary">{{taskOverviewData.taskAddedInLastWeek}}</span>
+            </div>
         </div>
     </div>
 </div>
+

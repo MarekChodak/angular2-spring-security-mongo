@@ -7,28 +7,28 @@ import {HttpClient} from "./httpClient/httpClient";
 import {LoginComponent} from "./login/login.component";
 import {AuthenticationService} from "./security/authentication.service";
 import {AuthGuard} from "./security/authGuard";
+import {NavigationComponent} from "./navigation/navigation.component";
+import {TasksService} from "./tasks/tasks.service";
+import {EmptyComponent} from "./empty.component";
+import {MyTasksComponent} from "./tasks/mytasks/mytasks.component";
 @Component({
     selector: 'my-app',
-        template: `
-      <h1>{{title}}</h1>
-      <login-form></login-form>
-      <nav *ngIf="menuVisible">
-        <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
-        <a [routerLink]="['/heroes']" routerLinkActive="active">Heroes</a>
-      </nav>
-      <router-outlet></router-outlet>
-    `,
-    directives: [ROUTER_DIRECTIVES, LoginComponent],
+    templateUrl: 'app/app.component.html',
+    styleUrls: ['app/app.component.css'],
+    directives: [ROUTER_DIRECTIVES, NavigationComponent],
     providers: [
-        HeroService
+        HeroService,
+        TasksService
     ],
-    precompile : [DashboardComponent, HeroesComponent]
+    precompile : [DashboardComponent, HeroesComponent, NavigationComponent, MyTasksComponent, EmptyComponent]
 })
 export class AppComponent {
 
     title = 'Tour of Heroes 6';
 
     private menuVisible : boolean;
+
+    private
 
     constructor(private authService : AuthenticationService) {
         this.menuVisible = authService.authenticated;

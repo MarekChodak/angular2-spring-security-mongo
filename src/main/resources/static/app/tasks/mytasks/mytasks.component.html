@@ -1,0 +1,40 @@
+<div class="container-fluid col-lg-4 col-md-6 col-sm-12 col-xs-12" >
+    <div class="row">
+        <div class="input-group addTaskPanel">
+            <input type="text" [(ngModel)]="newTaskName" class="form-control" placeholder="Task Name"/>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" (click)="addTask()" type="button">Add Task</button>
+            </span>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>My Current Tasks</h2>
+            </div>
+            <div class="panel-group">
+                <div *ngFor="let task of tasks" class="panel panel-default taskPanel">
+                    <div class="panel-body taskInList">
+                        <article class="media">
+                            <a class="pull-left date">
+                                <p class="month">{{task.createdDateMonth}}</p>
+                                <p class="day">{{task.createdDateDay}}</p>
+                            </a>
+                            <div class="media-body">
+                                <span class="taskTitle">{{task.name}}</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </div>
+                            <a class="commentsCount" data-toggle="popover" data-trigger="focus" tabindex="0" role="button" data-container="body"
+                               title="Task Comments"
+                               data-content="">
+                                {{task.commentsCount}} Comments</a>
+                            {{task.commentsContent}}
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+</div>

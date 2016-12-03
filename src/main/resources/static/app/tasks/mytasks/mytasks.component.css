@@ -1,0 +1,55 @@
+
+.media .date {
+    background: #ccc;
+    width: 52px;
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.media .date .month {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+}
+
+.media .date .day {
+    text-align: center;
+    color: #fff;
+    font-size: 27px;
+    margin: 0;
+    line-height: 27px;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.taskInList {
+    position: relative;
+}
+
+.commentsCount {
+    position: absolute;
+    right: 15px;
+    bottom: 3px;
+    cursor: hand;
+}
+
+.taskPanel{
+    /*cursor: hand;*/
+}
+
+.taskPanel:hover{
+    border: 1px solid #337ab7;
+}
+
+.addTaskPanel {
+    margin-bottom: 10px;
+}
+
+.taskTitle {
+    color: #73879C;
+    font-weight: bold;
+}

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" id="app-navbar-top">
+    <div class="container-fluid">
+        <div id="navbar"  style="max-height: none;">
+            <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="loginVisible" #loginMenu><a class="dropdown-toggle nav-top-item" href="#" data-toggle="dropdown">Login</a>
+                    <div id="loginbox"
+                         style="min-width: 450px; border: none; padding: 0; padding-top: 5px"
+                         class="dropdown-menu" >
+                        <login-form></login-form>
+                    </div>
+                </li>
+                <li *ngIf="!loginVisible" ><a class="nav-top-item" href="#" (click)="logout()" >Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

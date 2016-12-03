@@ -1,10 +1,10 @@
-import { provideRouter, RouterConfig }  from '@angular/router';
-import { HeroesComponent } from './heroes.component';
+import {provideRouter, RouterConfig} from "@angular/router";
+import {HeroesComponent} from "./heroes.component";
 import {DashboardComponent} from "./dashboard.component";
 import {HeroDetailComponent} from "./hero-detail.component";
 import {EmptyComponent} from "./empty.component";
 import {AuthGuard} from "./security/authGuard";
-import {AuthenticationService} from "./security/authentication.service";
+import {MyTasksComponent} from "./tasks/mytasks/mytasks.component";
 
 const routes: RouterConfig = [
     {
@@ -15,6 +15,11 @@ const routes: RouterConfig = [
     {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate : [AuthGuard]
+    },
+    {
+        path: 'mytasks',
+        component: MyTasksComponent,
         canActivate : [AuthGuard]
     },
     {
